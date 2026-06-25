@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - D-Health AI{% endblock %}
+
+{% block content %}
+<section class="dashboard-hero">
+  <div class="container dashboard-intro">
+    <div>
+      <p class="eyebrow">Patient prediction</p>
+      <h1>Enter patient details and generate a disease risk report.</h1>
+      <p class="hero-copy">Save customer information, run the model, and download a PDF report including predictions.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-two">
+    <div class="entry-panel">
+      <h2>Patient information</h2>
+      <form method="post" action="{{ url_for('predict') }}">
+        <label>Full name</label>
+        <input type="text" name="customer_name" placeholder="Patient name" required>
+        <label>Contact number</label>
+        <input type="text" name="contact_number" placeholder="Phone number" required>
+        <label>Age</label>
+        <input type="number" name="age" min="1" step="1" required>
+        <label>Blood pressure</label>
+        <input type="number" name="bp" min="1" step="0.1" required>
+        <label>Specific gravity</label>
+        <input type="number" name="sg" step="0.001" required>
+        <label>Albumin</label>
+        <input type="number" name="al" step="0.1" required>
+        <label>Sugar</label>
+        <input type="number" name="su" step="0.1" required>
+        <label>Red blood cells</label>
+        <select name="rbc" required>
+          <option value="0">Normal</option>
+          <option value="1">Abnormal</option>
+        </select>
+        <label>Pus cell</label>
+        <select name="pc" required>
+          <option value="0">Normal</option>
+          <option value="1">Abnormal</option>
+        </select>
+        <label>Pus cell clumps</label>
+        <select name="pcc" required>
+          <option value="0">Not present</option>
+          <option value="1">Present</option>
+        </select>
+        <label>Ba</label>
+        <select name="ba" required>
+          <option value="0">Not present</option>
+          <option value="1">Present</option>
+        </select>
+        <label>Blood glucose random</label>
+        <input type="number" name="bgr" step="0.1" required>
+        <label>Blood urea</label>
+        <input type="number" name="bu" step="0.1" required>
+        <label>Serum creatinine</label>
+        <input type="number" name="sc" step="0.1" required>
+        <label>Sodium</label>
+        <input type="number" name="sod" step="0.1" required>
+        <label>Potassium</label>
+        <input type="number" name="pot" step="0.1" required>
+        <label>Hemoglobin</label>
+        <input type="number" name="hemo" step="0.1" required>
+        <label>PCV</label>
+        <input type="number" name="pcv" step="0.1" required>
+        <label>WBC count</label>
+        <input type="number" name="wc" step="0.1" required>
+        <label>RBC count</label>
+        <input type="number" name="rc" step="0.1" required>
+        <label>HTN</label>
+        <select name="htn" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <label>DM</label>
+        <select name="dm" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <label>CAD</label>
+        <select name="cad" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <label>Appetite</label>
+        <select name="appet" required>
+          <option value="0">Poor</option>
+          <option value="1">Good</option>
+        </select>
+        <label>Pedal edema</label>
+        <select name="pe" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <label>Aneamia</label>
+        <select name="ane" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <label>Urine abnormality</label>
+        <input type="number" name="urine_abnormality" step="0.1" required>
+        <label>Urine protein score</label>
+        <input type="number" name="urine_protein_score" step="0.1" required>
+        <label>Renal function average</label>
+        <input type="number" name="renal_function_avg" step="0.1" required>
+        <label>Renal function load</label>
+        <input type="number" name="renal_function_load" step="0.1" required>
+        <label>Electrolyte gap</label>
+        <input type="number" name="electrolyte_gap" step="0.1" required>
+        <label>Hemo/PCV ratio</label>
+        <input type="number" name="hemo_pcv_ratio" step="0.001" required>
+        <label>WBC/RBC ratio</label>
+        <input type="number" name="wbc_rc_ratio" step="0.001" required>
+        <label>Age-BP interaction</label>
+        <input type="number" name="age_bp_interaction" step="0.01" required>
+        <label>Comorbidity flag</label>
+        <select name="comorbidity_flag" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <label>Senior age flag</label>
+        <select name="senior_age_flag" required>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <button class="button primary" type="submit">Predict & Download Report</button>
+      </form>
+    </div>
+
+    <div class="result-panel">
+      {% if prediction is not none %}
+        <div class="result-card">
+          <h2>Prediction result</h2>
+          <p class="result-label">Risk status</p>
+          <p class="result-value">{{ prediction }}</p>
+          <p class="result-note">The generated report is available for download below.</p>
+          <a class="button secondary" href="{{ report_url }}">Download PDF report</a>
+        </div>
+      {% else %}
+        <div class="result-card empty-card">
+          <h2>Patient prediction</h2>
+          <p>Fill the form and submit to generate a risk prediction report.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

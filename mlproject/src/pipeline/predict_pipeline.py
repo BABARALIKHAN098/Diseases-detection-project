@@ -9,12 +9,14 @@ from ..exception import CustomException
 from ..logger import logging
 from ..helper import load_object
 
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
+
 
 @dataclass
 class PredictPipelineConfig:
     """Configuration for prediction pipeline paths."""
-    model_file: str = os.path.join("artifacts", "model.pkl")
-    preprocessor_file: str = os.path.join("artifacts", "preprocessor.pkl")
+    model_file: str = os.path.join(BASE_DIR, "artifacts", "model.pkl")
+    preprocessor_file: str = os.path.join(BASE_DIR, "artifacts", "preprocessor.pkl")
 
 
 class PredictPipeline:

@@ -1,11 +1,52 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="/static/style.css">
-  </head>
-  <body>
-    <h1>ML Project Home</h1>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}D-Health AI | Predictive Disease Screening{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow">AI Healthcare</p>
+      <h1>Precision disease predictions for smarter healthcare decisions</h1>
+      <p class="hero-copy">D-Health AI helps providers capture patient details, generate risk assessments using a trained disease model, and deliver downloadable PDF reports.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="{{ url_for('signup') }}">Create account</a>
+        <a class="button secondary" href="{{ url_for('login') }}">Login</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="/img/download.jpg" alt="Healthcare AI illustration">
+    </div>
+  </div>
+</section>
+
+<section class="section features">
+  <div class="container">
+    <h2>What you can do</h2>
+    <div class="feature-grid">
+      <article class="feature-card">
+        <h3>Secure patient records</h3>
+        <p>Store customer details and prediction history inside a local database.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Web-based workflow</h3>
+        <p>Enter patient measurements, run the model, and view results in one interface.</p>
+      </article>
+      <article class="feature-card">
+        <h3>Detailed reports</h3>
+        <p>Generate PDF reports including contact details and model assessment.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-panel">
+  <div class="container grid-two align-center">
+    <div>
+      <h2>Designed for clinical teams and small clinics</h2>
+      <p>Get a clean, professional workflow for disease risk screening and deliver a polished report to your customers.</p>
+    </div>
+    <a class="button primary" href="{{ url_for('signup') }}">Get started</a>
+  </div>
+</section>
+{% endblock %}

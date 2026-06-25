@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - D-Health AI{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+  <div class="auth-card">
+    <h2>Create your account</h2>
+    <p>Register to save your reports and get personalized predictions.</p>
+    <form method="post" action="{{ url_for('signup') }}">
+      <label>Full name</label>
+      <input type="text" name="fullname" placeholder="Your full name" required>
+      <label>Email</label>
+      <input type="email" name="email" placeholder="Your email" required>
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Pick a username" required>
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Create a password" required>
+      <button class="button primary" type="submit">Sign up</button>
+    </form>
+    <p class="small-note">Already have an account? <a href="{{ url_for('login') }}">Login</a>.</p>
+  </div>
+</section>
+{% endblock %}

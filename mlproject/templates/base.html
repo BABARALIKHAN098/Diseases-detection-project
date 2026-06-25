@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Diseases Detection System{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="{{ url_for('home') }}">D-Health AI</a>
+        <nav class="nav-links">
+          <a href="{{ url_for('home') }}">Home</a>
+          {% if session.get('user_id') %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+          {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a class="button small" href="{{ url_for('signup') }}">Sign up</a>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <div class="flash-container">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="flash-message">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>© {{ current_year }} Diseases Detection System. Secure patient prediction and customized reports.</p>
+      </div>
+    </footer>
+  </body>
+</html>
