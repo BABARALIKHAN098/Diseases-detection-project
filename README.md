@@ -1,118 +1,92 @@
-# Diseases Detection System
+# Kidney Disease Detection System
 
-## Project Overview
-
-The Diseases Detection System is a production-ready machine learning application built in Python and Flask. It combines structured data ingestion, preprocessing, model training, and a web interface to enable reliable disease prediction using clinical and laboratory indicators.
-
-This repository demonstrates the full lifecycle of an end-to-end ML system:
-- data ingestion and quality validation
-- feature transformation and scaling
-- model training, evaluation, and selection
-- persistence of artifacts for inference
-- interactive web application for patient report generation
+A professional machine learning application for kidney disease detection, featuring a Flask web interface, model training pipelines, and a clean project architecture. This repository includes data preprocessing, model training, inference, and deployment-ready components.
 
 ## Key Features
 
-- Robust data ingestion from cleaned medical datasets
-- Preprocessing pipeline with feature scaling and transformation
-- Multi-model evaluation to select the best performing model
-- Model serialization for consistent inference behavior
-- User authentication and report management via Flask
-- Dynamic report generation and PDF-style output storage
+- Predicts kidney disease using machine learning models
+- Flask-based web application for user-friendly interaction
+- Structured pipeline for data ingestion, transformation, and model training
+- Persistent artifacts for model and preprocessor serialization
+- Built-in logging and error handling for reliable operation
 
-## Project Architecture
+## Repository Structure
 
-The application follows a modular structure:
-
-- `mlproject/src/components/` — data ingestion, transformation, and model training classes
-- `mlproject/src/pipeline/` — orchestrates training and prediction workflows
-- `mlproject/app.py` — Flask web server with authentication and reporting routes
-- `mlproject/templates/` — UI templates for signup, login, dashboard, and report views
-- `mlproject/static/` — CSS and static assets
-- `mlproject/artifacts/` — generated model, preprocessor, train/test sets
-- `mlproject/data/` — project data and local database storage
-
-## Dataset
-
-The repository leverages the cleaned kidney disease dataset located in:
-
-- `mlproject/notebooks/datasets/kidney_disease_cleaned.csv`
-
-Training and evaluation artifacts are saved under `mlproject/artifacts`.
+- `mlproject/` - Main application and package code
+  - `app.py` - Flask application entry point
+  - `application.py` - Runtime launcher for the Flask app
+  - `requirements.txt` - Python dependencies
+  - `setup.py` - Package configuration
+  - `src/` - Project source code package
+    - `components/` - Data ingestion, cleaning, transformation, and training
+    - `pipeline/` - End-to-end training and prediction workflows
+    - `utils.py`, `preprocessor.py`, `logger.py`, `exception.py` - Core utilities
+- `img/` - Screenshot assets used in documentation
+- `logs/` - Generated application logs
+- `PROJECT_STRUCTURE.md` - High-level project structure documentation
 
 ## Installation
 
-1. Create and activate a Python virtual environment:
+1. Clone the repository:
 
-```bash
-cd "e:/100 days MachineLearning/Diseases detection system/mlproject"
-python -m venv .venv
-.venv/Scripts/activate
-```
+   ```bash
+   git clone <repository-url>
+   cd "Diseases detection system"
+   ```
 
-2. Install the required dependencies:
+2. Create and activate a virtual environment:
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   python -m venv .venv
+   source .venv/Scripts/activate
+   ```
 
-3. Verify the working directory is set to `mlproject` before running any pipeline or server commands.
+3. Install the required dependencies:
+
+   ```bash
+   pip install -r mlproject/requirements.txt
+   ```
 
 ## Usage
 
-### Train the Model
+1. Run the Flask application:
 
-Train the machine learning pipeline and generate artifacts:
+   ```bash
+   python mlproject/app.py
+   ```
 
-```bash
-cd "e:/100 days MachineLearning/Diseases detection system/mlproject"
-python -c "from src.pipeline.train_pipeline import TrainPipeline; pipeline = TrainPipeline(); pipeline.run()"
-```
+2. Open a browser and navigate to:
 
-### Run Predictions
+   ```text
+   http://127.0.0.1:5000
+   ```
 
-Use the saved model and preprocessor to make predictions on test data:
+3. Use the web interface to upload input data or enter patient parameters for kidney disease prediction.
 
-```bash
-cd "e:/100 days MachineLearning/Diseases detection system/mlproject"
-python -c "from src.pipeline.predict_pipeline import PredictPipeline; import pandas as pd; predictor = PredictPipeline(); X = pd.read_csv('artifacts/test.csv').drop('classification', axis=1); predictions = predictor.predict(X); print(predictions)"
-```
+## Screenshots
 
-### Start the Web Application
+<img src="img/Screenshot 2026-06-25 170728.png" alt="Application screenshot 1" width="600" />
 
-Launch the Flask application and open the browser:
+<img src="img/Screenshot 2026-06-25 170819.png" alt="Application screenshot 2" width="600" />
 
-```bash
-cd "e:/100 days MachineLearning/Diseases detection system/mlproject"
-python app.py
-```
+<img src="img/Screenshot 2026-06-25 170838.png" alt="Application screenshot 3" width="600" />
 
-Open `http://localhost:5000` in your browser to access the user interface.
+<img src="img/Screenshot 2026-06-25 170904.png" alt="Application screenshot 4" width="600" />
 
-## Application Screenshots
+## Architecture
 
-### Application Home Screen
-
-![Homepage preview](mlproject/img/Screenshot 2026-06-25 170728.png)
-
-### User Authentication and Dashboard
-
-![Login and dashboard preview](mlproject/img/Screenshot 2026-06-25 170819.png)
-
-### Prediction Report Generation
-
-![Prediction report preview](mlproject/img/Screenshot 2026-06-25 170838.png)
-
-### Additional Interface Preview
-
-![Application screenshot](mlproject/img/download.jpg)
+- Data ingestion reads raw dataset files from `notebooks/datasets/`
+- Preprocessing and feature scaling are implemented in `src/preprocessor.py`
+- Model training logic is centralized in `src/components/model_trainer.py`
+- Prediction and inference use the trained model artifact located in `mlproject/artifacts/`
+- Flask templates and static assets support the user interface
 
 ## Notes
 
-- The Flask application uses `mlproject/img` for image assets and `mlproject/templates` for HTML views.
-- Database and reporting files are created automatically under `mlproject/data` and `mlproject/reports`.
-- Ensure Python dependencies are installed before running the training or the server.
+- The model artifacts are stored in `mlproject/artifacts/`.
+- Logging is captured under `mlproject/logs/` for runtime diagnostics.
+- Existing notebooks support EDA and model training experiments.
 
-## Contact
+## License
 
-For issues, improvements, or deployment support, review the code modules under `mlproject/src` and the Flask routing logic in `mlproject/app.py`. Replace the development secret key in `app.py` before deploying to production.
+This project is provided for educational purposes. Review and apply an appropriate license for production use.
